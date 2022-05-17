@@ -1,4 +1,4 @@
-package com.example.edunotekotlin.ui
+package com.example.edunotekotlin.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edunotekotlin.R
-import com.example.edunotekotlin.ui.presenter.NoteMainPresenterImpl
+import com.example.edunotekotlin.ui.main.mainpresenter.NoteMainPresenterImpl
 import com.example.kotlineasynote.entities.OneNote
 
 
-class MainFragment : Fragment(),ViewInterface {
+class MainFragment : Fragment(), ViewInterface {
 
     val presenter = NoteMainPresenterImpl(this)
     var recyclerViewAdapter = RecyclerViewAdapter()

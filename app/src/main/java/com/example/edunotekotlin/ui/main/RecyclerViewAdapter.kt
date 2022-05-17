@@ -1,4 +1,4 @@
-package com.example.edunotekotlin.ui
+package com.example.edunotekotlin.ui.main
 
 import android.view.LayoutInflater
 import android.view.View

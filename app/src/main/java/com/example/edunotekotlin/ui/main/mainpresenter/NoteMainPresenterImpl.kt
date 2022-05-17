@@ -1,8 +1,8 @@
-package com.example.edunotekotlin.ui.presenter
+package com.example.edunotekotlin.ui.main.mainpresenter
 
 import androidx.fragment.app.Fragment
 import com.example.edunotekotlin.entities.RepositorySharedImpl
-import com.example.edunotekotlin.ui.ViewInterface
+import com.example.edunotekotlin.ui.main.ViewInterface
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 

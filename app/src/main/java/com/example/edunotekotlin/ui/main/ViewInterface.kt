@@ -1,4 +1,4 @@
-package com.example.edunotekotlin.ui
+package com.example.edunotekotlin.ui.main
 
 import com.example.kotlineasynote.entities.OneNote
 

@@ -1,7 +1,6 @@
-package com.example.edunotekotlin.ui.presenter
+package com.example.edunotekotlin.ui.main.mainpresenter
 
 import androidx.fragment.app.Fragment
-import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
 interface NoteMainPresenter {

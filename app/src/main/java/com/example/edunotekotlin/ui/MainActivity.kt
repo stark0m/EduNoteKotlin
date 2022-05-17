@@ -3,6 +3,7 @@ package com.example.edunotekotlin.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.edunotekotlin.R
+import com.example.edunotekotlin.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var fragment: MainFragment
