@@ -8,4 +8,5 @@ interface ViewInterface {
     fun writeNoteListToData(list: MutableList<OneNote>)
     fun startLoading()
     fun loaded()
+    fun addNote(newNote:OneNote)
 }

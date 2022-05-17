@@ -8,17 +8,24 @@ import com.example.edunotekotlin.ui.edit.EditViewInterface
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
-class NoteEditPresenterEditNote : NoteEditPresenterAbstract {
-    constructor(fragment: ActionFragment, view: EditViewInterface, note: OneNote = OneNote()) {
+class NoteEditPresenterImpl : NoteEditPresenter {
+    lateinit var fragment: ActionFragment
+    lateinit var fragmentView: EditViewInterface
+    lateinit var currentNote: OneNote
+    lateinit var buttonText :String
+    override fun back() {
+        fragment!!.requireActivity().supportFragmentManager.popBackStack()
+
+    }
+    constructor(fragment: ActionFragment, view: EditViewInterface, note: OneNote = OneNote(), buttonText:String = "Save") {
         this.fragment = fragment
         this.currentNote = note
         this.fragmentView = view
+        this.buttonText = buttonText
 
     }
 
     override fun action(callBack: CallBack<OneNote>) {
-//        currentNote.description=fragment.requireView().findViewById<EditText>(R.id.editnote_description).text.toString()
-//        currentNote.text=fragment.requireView().findViewById<EditText>(R.id.editnote_text).text.toString()
 
         fragmentView.viewAction(object : CallBack<OneNote> {
             override fun onSuccess(data: OneNote) {

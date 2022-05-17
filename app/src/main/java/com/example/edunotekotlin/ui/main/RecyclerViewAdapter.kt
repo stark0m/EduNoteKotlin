@@ -10,11 +10,9 @@ import com.example.edunotekotlin.R
 import com.example.kotlineasynote.entities.OneNote
 
 
-class RecyclerViewAdapter(
+class RecyclerViewAdapter() : Adapter<RecyclerViewAdapter.ViewHolder>() {
+
     var data: MutableList<OneNote> = mutableListOf()
-) : Adapter<RecyclerViewAdapter.ViewHolder>() {
-
-
     interface ClickedNote {
         fun clicked(note: OneNote)
     }
@@ -61,6 +59,7 @@ class RecyclerViewAdapter(
     }
 
     override fun getItemCount() = data.size
+
 
 }
 

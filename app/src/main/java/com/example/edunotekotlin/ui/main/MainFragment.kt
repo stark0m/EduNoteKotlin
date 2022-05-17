@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.ui.main.mainpresenter.NoteMainPresenterImpl
 import com.example.kotlineasynote.entities.OneNote
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainFragment : Fragment(), ViewInterface {
 
-    val presenter = NoteMainPresenterImpl(this)
+    val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this) }
     var recyclerViewAdapter = RecyclerViewAdapter()
-    lateinit var recyclerView:RecyclerView
+    lateinit var recyclerView: RecyclerView
+    lateinit var floatButton: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.attachFragment(this)
@@ -27,30 +29,42 @@ class MainFragment : Fragment(), ViewInterface {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.id_recycler_view)
+        floatButton = view.findViewById(R.id.floating_action_button)
+
 
         initRecycler()
         presenter.init()
         initCallBacks()
+        initListeners()
+
 
     }
 
+    private fun initListeners() {
+        floatButton.setOnClickListener() {
+            presenter.addNote()
+        }
+    }
+
     private fun initCallBacks() {
-        recyclerViewAdapter.clickedNote = object :RecyclerViewAdapter.ClickedNote{
+        recyclerViewAdapter.clickedNote = object : RecyclerViewAdapter.ClickedNote {
             override fun clicked(note: OneNote) {
                 presenter.updateNote(note)
             }
         }
+
+
     }
 
     private fun initRecycler() {
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         recyclerView.adapter = recyclerViewAdapter
     }
 
@@ -59,6 +73,7 @@ class MainFragment : Fragment(), ViewInterface {
         super.onDetach()
         presenter.detouchFragment()
     }
+
     override fun redraw() {
 
         recyclerViewAdapter.notifyDataSetChanged()
@@ -70,7 +85,7 @@ class MainFragment : Fragment(), ViewInterface {
     }
 
     override fun writeNoteListToData(list: MutableList<OneNote>) {
-        recyclerViewAdapter.data=list
+        recyclerViewAdapter.data = list
 
 
     }
@@ -82,4 +97,11 @@ class MainFragment : Fragment(), ViewInterface {
     override fun loaded() {
 //        TODO("скрываем загрузочный экран")
     }
+
+    override fun addNote(newNote: OneNote) {
+        recyclerViewAdapter.data.add(0, newNote)
+        recyclerViewAdapter.notifyItemChanged(0)
+    }
 }
+
+

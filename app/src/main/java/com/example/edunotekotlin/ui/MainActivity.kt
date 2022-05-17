@@ -14,9 +14,9 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState==null) {
             fragment = MainFragment()
-                    }
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container,fragment)
             .commit()
-    }
+    }}
 }

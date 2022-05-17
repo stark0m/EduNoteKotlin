@@ -5,7 +5,7 @@ import com.example.kotlineasynote.entities.OneNote
 
 interface NoteMainPresenter {
     fun init()
-    fun addNote(note: OneNote)
+    fun addNote()
     fun updateNote(oldNote: OneNote)
     fun deleteNote(note: OneNote)
     fun attachFragment(fragment: Fragment)

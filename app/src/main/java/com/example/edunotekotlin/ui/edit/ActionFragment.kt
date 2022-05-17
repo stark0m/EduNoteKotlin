@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import com.example.edunotekotlin.R
-import com.example.edunotekotlin.ui.edit.editpresenter.NoteEditPresenterAbstract
+import com.example.edunotekotlin.ui.edit.editpresenter.NoteEditPresenter
+import com.example.edunotekotlin.ui.edit.editpresenter.NoteEditPresenterImpl
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
@@ -21,7 +22,7 @@ class ActionFragment : Fragment(), EditViewInterface {
     lateinit var currentNote: OneNote
     lateinit var buttonAction: Button
     lateinit var buttonCancel: Button
-    lateinit var presenter: NoteEditPresenterAbstract
+    lateinit var presenter: NoteEditPresenterImpl
 
     lateinit var clickActionLisener: View.OnClickListener
 
@@ -32,8 +33,8 @@ class ActionFragment : Fragment(), EditViewInterface {
     }
 
     @JvmName("setPresenter1")
-    fun setPresenter(presenter: NoteEditPresenterAbstract) {
-        this.presenter = presenter
+    fun setPresenter(presenter: NoteEditPresenter) {
+        this.presenter = presenter as NoteEditPresenterImpl
 
     }
 
@@ -61,6 +62,7 @@ class ActionFragment : Fragment(), EditViewInterface {
         noteDescription.setText(currentNote.description)
         noteText.setText(currentNote.text)
         buttonAction.text = presenter.buttonText
+
         setButtonListeners()
 
     }
