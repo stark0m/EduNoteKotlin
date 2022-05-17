@@ -31,23 +31,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/editnote_action_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="Action"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/action_button_margin"/>
+            android:layout_margin="@dimen/action_button_margin"
+            android:layout_weight="1"
+            tools:text="Action" />
+
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/editnote_cancel_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="@dimen/action_button_margin"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

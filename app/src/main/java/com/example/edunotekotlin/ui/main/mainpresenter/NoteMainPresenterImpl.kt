@@ -1,7 +1,12 @@
 package com.example.edunotekotlin.ui.main.mainpresenter
 
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.edunotekotlin.R
+import com.example.edunotekotlin.entities.Constants
 import com.example.edunotekotlin.entities.RepositorySharedImpl
+import com.example.edunotekotlin.ui.edit.ActionFragment
+import com.example.edunotekotlin.ui.edit.editpresenter.NoteEditPresenterEditNote
 import com.example.edunotekotlin.ui.main.ViewInterface
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
@@ -30,7 +35,33 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
     }
 
     override fun updateNote(oldNote: OneNote) {
-//        TODO("Not yet implemented")
+        val editableFragment = ActionFragment()
+        editableFragment.setNote(oldNote)
+        editableFragment.setPresenter(NoteEditPresenterEditNote(editableFragment,editableFragment,oldNote))
+        fragment!!.requireActivity().supportFragmentManager.beginTransaction()
+            .hide(fragment!!)
+            .add(R.id.fragment_container,editableFragment)
+            .addToBackStack(Constants.EDIT_NOTE)
+            .commit()
+
+
+        editableFragment.presenter.action(object :CallBack<OneNote> {
+            override fun onSuccess(data: OneNote) {
+                view.startLoading()
+                repository.updateNote(oldNote,data,object : CallBack<Boolean>{
+                    override fun onSuccess(data: Boolean) {
+                        view.loaded()
+
+                    }
+                })
+                fragment!!.requireActivity().supportFragmentManager.popBackStack();
+                Toast.makeText(fragment!!.context, "clicked edit", Toast.LENGTH_SHORT).show()
+                view.redraw()
+            }
+        })
+
+
+
     }
 
     override fun deleteNote(note: OneNote) {

@@ -37,6 +37,16 @@ class MainFragment : Fragment(), ViewInterface {
 
         initRecycler()
         presenter.init()
+        initCallBacks()
+
+    }
+
+    private fun initCallBacks() {
+        recyclerViewAdapter.clickedNote = object :RecyclerViewAdapter.ClickedNote{
+            override fun clicked(note: OneNote) {
+                presenter.updateNote(note)
+            }
+        }
     }
 
     private fun initRecycler() {
@@ -50,19 +60,19 @@ class MainFragment : Fragment(), ViewInterface {
         presenter.detouchFragment()
     }
     override fun redraw() {
-//        TODO("отрисовываем список ")
+
         recyclerViewAdapter.notifyDataSetChanged()
     }
 
     override fun redrawRecyclerInPosition(position: Int) {
-//        TODO("Not yet implemented")
+
         recyclerViewAdapter.notifyItemChanged(position)
     }
 
     override fun writeNoteListToData(list: MutableList<OneNote>) {
         recyclerViewAdapter.data=list
 
-//        TODO("поместить лист в адаптер ресайклера")
+
     }
 
     override fun startLoading() {
