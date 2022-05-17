@@ -6,15 +6,15 @@ import com.example.edunotekotlin.ui.ViewInterface
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
-class NoteMainPresenterImpl(val view:ViewInterface):NoteMainPresenter {
+class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
 
 
     private var repository = RepositorySharedImpl()
-    private var fragment:Fragment? = null
+    private var fragment: Fragment? = null
 
     override fun init(list: MutableList<OneNote>) {
         view.startLoading()
-        repository.getData(object :CallBack<MutableList<OneNote>>{
+        repository.getData(object : CallBack<MutableList<OneNote>> {
             override fun onSuccess(data: MutableList<OneNote>) {
                 view.writeNoteListToData(list)
                 view.redraw()
@@ -23,27 +23,33 @@ class NoteMainPresenterImpl(val view:ViewInterface):NoteMainPresenter {
         })
 
 
-        TODO("Not yet implemented")
     }
 
     override fun addNote(note: OneNote) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun updateNote(oldNote: OneNote) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun deleteNote(note: OneNote) {
-        TODO("Not yet implemented")
+        view.startLoading()
+        repository.deleteNote(note, object : CallBack<Boolean> {
+            override fun onSuccess(data: Boolean) {
+                view.loaded()
+
+            }
+        })
     }
 
+
     override fun attachFragment(fragment: Fragment) {
-       this.fragment = fragment
+        this.fragment = fragment
     }
 
     override fun detouchFragment() {
-       this.fragment = null
+        this.fragment = null
     }
 
 }
