@@ -5,7 +5,7 @@ import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
 interface NoteMainPresenter {
-    fun init(list: MutableList<OneNote>)
+    fun init()
     fun addNote(note: OneNote)
     fun updateNote(oldNote: OneNote)
     fun deleteNote(note: OneNote)

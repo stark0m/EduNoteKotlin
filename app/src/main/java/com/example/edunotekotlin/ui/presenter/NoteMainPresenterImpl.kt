@@ -12,11 +12,11 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
     private var repository = RepositorySharedImpl()
     private var fragment: Fragment? = null
 
-    override fun init(list: MutableList<OneNote>) {
+    override fun init() {
         view.startLoading()
         repository.getData(object : CallBack<MutableList<OneNote>> {
             override fun onSuccess(data: MutableList<OneNote>) {
-                view.writeNoteListToData(list)
+                view.writeNoteListToData(data)
                 view.redraw()
                 view.loaded()
             }
