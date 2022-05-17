@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.ui.presenter.NoteMainPresenter
 import com.example.edunotekotlin.ui.presenter.NoteMainPresenterImpl
+import com.example.kotlineasynote.entities.OneNote
 
 
 class MainFragment : Fragment(),ViewInterface {
@@ -16,6 +17,7 @@ class MainFragment : Fragment(),ViewInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter.attachFragment(this)
 
     }
 
@@ -33,8 +35,20 @@ class MainFragment : Fragment(),ViewInterface {
     }
 
 
+    override fun onDetach() {
+        super.onDetach()
+        presenter.detouchFragment()
+    }
     override fun redraw() {
 //        TODO("отрисовываем список ")
+    }
+
+    override fun redrawRecyclerInPosition(position: Int) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun writeNoteListToData(list: MutableList<OneNote>) {
+//        TODO("поместить лист в адаптер ресайклера")
     }
 
     override fun startLoading() {

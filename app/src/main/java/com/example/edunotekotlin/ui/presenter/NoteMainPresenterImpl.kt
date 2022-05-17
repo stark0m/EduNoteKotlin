@@ -1,14 +1,28 @@
 package com.example.edunotekotlin.ui.presenter
 
 import androidx.fragment.app.Fragment
+import com.example.edunotekotlin.entities.RepositorySharedImpl
 import com.example.edunotekotlin.ui.ViewInterface
+import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
-class NoteMainPresenterImpl(view:ViewInterface):NoteMainPresenter {
+class NoteMainPresenterImpl(val view:ViewInterface):NoteMainPresenter {
 
+
+    private var repository = RepositorySharedImpl()
     private var fragment:Fragment? = null
 
     override fun init(list: MutableList<OneNote>) {
+        view.startLoading()
+        repository.getData(object :CallBack<MutableList<OneNote>>{
+            override fun onSuccess(data: MutableList<OneNote>) {
+                view.writeNoteListToData(list)
+                view.redraw()
+                view.loaded()
+            }
+        })
+
+
         TODO("Not yet implemented")
     }
 
