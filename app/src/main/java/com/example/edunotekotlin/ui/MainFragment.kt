@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.edunotekotlin.R
-
+import com.example.edunotekotlin.ui.presenter.NoteMainPresenter
+import com.example.edunotekotlin.ui.presenter.NoteMainPresenterImpl
 
 
 class MainFragment : Fragment(),ViewInterface {
 
+    val presenter = NoteMainPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,26 +27,21 @@ class MainFragment : Fragment(),ViewInterface {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        @JvmStatic
-        fun newInstance() =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
     }
 
+
     override fun redraw() {
-        TODO("Not yet implemented")
+//        TODO("отрисовываем список ")
     }
 
     override fun startLoading() {
-        TODO("Not yet implemented")
+//        TODO("показываем загрузочный экран")
     }
 
     override fun loaded() {
-        TODO("Not yet implemented")
+//        TODO("скрываем загрузочный экран")
     }
 }
