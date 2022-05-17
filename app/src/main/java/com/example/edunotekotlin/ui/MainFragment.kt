@@ -9,7 +9,7 @@ import com.example.edunotekotlin.R
 
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),ViewInterface {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,5 +34,17 @@ class MainFragment : Fragment() {
 
                 }
             }
+    }
+
+    override fun redraw() {
+        TODO("Not yet implemented")
+    }
+
+    override fun startLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun loaded() {
+        TODO("Not yet implemented")
     }
 }
