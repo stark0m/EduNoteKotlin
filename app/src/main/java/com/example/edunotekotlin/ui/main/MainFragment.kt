@@ -1,10 +1,12 @@
 package com.example.edunotekotlin.ui.main
 
 import android.os.Bundle
+import android.os.FileUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edunotekotlin.R
@@ -16,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class MainFragment : Fragment(), ViewInterface {
 
     val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this) }
+    lateinit var progressbar: ProgressBar
     var recyclerViewAdapter = RecyclerViewAdapter()
     lateinit var recyclerView: RecyclerView
     lateinit var floatButton: FloatingActionButton
@@ -34,8 +37,11 @@ class MainFragment : Fragment(), ViewInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.id_recycler_view)
-        floatButton = view.findViewById(R.id.floating_action_button)
+        view.apply {
+            recyclerView = findViewById(R.id.id_recycler_view)
+            floatButton = findViewById(R.id.floating_action_button)
+            progressbar = findViewById(R.id.progress)
+        }
 
 
         initRecycler()
@@ -91,16 +97,24 @@ class MainFragment : Fragment(), ViewInterface {
     }
 
     override fun startLoading() {
-//        TODO("показываем загрузочный экран")
+        progressbar.visibility = View.VISIBLE
+
     }
 
     override fun loaded() {
-//        TODO("скрываем загрузочный экран")
+        progressbar.visibility = View.GONE
+
     }
 
     override fun addNote(newNote: OneNote) {
         recyclerViewAdapter.data.add(0, newNote)
         recyclerViewAdapter.notifyItemChanged(0)
+    }
+
+    companion object
+    fun newInstance(): MainFragment {
+        val instance: MainFragment by lazy { MainFragment() }
+        return instance
     }
 }
 
