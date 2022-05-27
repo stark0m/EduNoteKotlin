@@ -46,11 +46,8 @@ class MainFragment : Fragment(), ViewInterface {
             progressbar = findViewById(R.id.progress)
             toolbar = findViewById(R.id.fragment_main_toolbar)
         }
-        if (requireActivity() is MenuDrawable) {
-            (requireActivity() as MenuDrawable).setAppToolbar(toolbar)
-        }
 
-
+        addDrawerMenuIfExist()
         initRecycler()
         presenter.init()
         initCallBacks()
@@ -59,9 +56,23 @@ class MainFragment : Fragment(), ViewInterface {
 
     }
 
+    private fun addDrawerMenuIfExist() {
+        if (requireActivity() is MenuDrawable) {
+            (requireActivity() as MenuDrawable).setAppToolbar(toolbar)
+        }
+    }
+
     private fun initListeners() {
         floatButton.setOnClickListener() {
             presenter.addNote()
+        }
+
+        toolbar.setOnMenuItemClickListener(){
+            when(it.itemId){
+                R.id.menu_add->presenter.addNote()
+                else -> {true}
+            }
+            true
         }
     }
 

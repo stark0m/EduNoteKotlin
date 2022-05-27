@@ -6,8 +6,10 @@
         android:title="@string/add" />
     <item
         android:id="@+id/about"
+        android:icon="@drawable/ic_baseline_about_24"
         android:title="@string/about" />
     <item
         android:id="@+id/copyright"
+        android:icon="@drawable/ic_baseline_copyright_24"
         android:title="@string/copyright" />
 </menu>
