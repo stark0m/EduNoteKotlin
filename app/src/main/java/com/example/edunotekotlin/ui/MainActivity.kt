@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(),MenuDrawable {
     lateinit var drawler: DrawerLayout
     lateinit var navigationDrawlerView: NavigationView
     val fragment = MainFragment().newInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
