@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.entities.MenuDrawable
+import com.example.edunotekotlin.ui.MainActivity
 import com.example.edunotekotlin.ui.main.mainpresenter.NoteMainPresenterImpl
 import com.example.kotlineasynote.entities.OneNote
 import com.google.android.material.appbar.MaterialToolbar
@@ -135,6 +138,8 @@ class MainFragment : Fragment(), ViewInterface {
         val instance: MainFragment by lazy { MainFragment() }
         return instance
     }
+
+
 
 
 }
