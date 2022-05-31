@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.entities.MenuDrawable
 import com.example.edunotekotlin.ui.exit.ExitDialogFragment
@@ -57,15 +58,21 @@ class MainActivity : AppCompatActivity(), MenuDrawable {
 
     }
 
+    /**
+     * по двойному нажатию кнопки назад - выходим из приложения
+     * если открыта заметка, то возвращаемся на страницу отображения списка всех заметок
+     */
     override fun onBackPressed() {
-
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
-            ExitDialogFragment().showNow(supportFragmentManager,ExitDialogFragment.TAG)
-            // TODO:  super.onBackPressed()
+        if (supportFragmentManager.fragments.size == 1) {
+            if (back_pressed + 2000 > System.currentTimeMillis()) {
+                ExitDialogFragment().showNow(supportFragmentManager, ExitDialogFragment.TAG)
+            } else {
+                Toast.makeText(baseContext, "Press once again to exit!", Toast.LENGTH_SHORT).show()
+            }
+            back_pressed = System.currentTimeMillis()
         } else {
-            Toast.makeText(baseContext, "Press once again to exit!", Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
         }
-        back_pressed = System.currentTimeMillis()
     }
 
 }
