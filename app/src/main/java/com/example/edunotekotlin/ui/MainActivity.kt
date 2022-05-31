@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.entities.MenuDrawable
+import com.example.edunotekotlin.ui.exit.ExitDialogFragment
 import com.example.edunotekotlin.ui.main.MainFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity(), MenuDrawable {
     override fun onBackPressed() {
 
         if (back_pressed + 2000 > System.currentTimeMillis()) {
+            ExitDialogFragment().showNow(supportFragmentManager,ExitDialogFragment.TAG)
             // TODO:  super.onBackPressed()
         } else {
             Toast.makeText(baseContext, "Press once again to exit!", Toast.LENGTH_SHORT).show()

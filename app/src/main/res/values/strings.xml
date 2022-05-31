@@ -10,4 +10,5 @@
     <string name="copyright">Copyright</string>
     <string name="open_rawler">OPEN</string>
     <string name="close_drawler">CLOSE</string>
+    <string name="are_you_sure_to_cancel">Вы уверены что хотите выйти из приложения?</string>
 </resources>
