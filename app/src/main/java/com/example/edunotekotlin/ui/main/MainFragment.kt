@@ -10,8 +10,10 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edunotekotlin.R
+import com.example.edunotekotlin.entities.MenuDrawable
 import com.example.edunotekotlin.ui.main.mainpresenter.NoteMainPresenterImpl
 import com.example.kotlineasynote.entities.OneNote
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -19,6 +21,7 @@ class MainFragment : Fragment(), ViewInterface {
 
     val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this) }
     lateinit var progressbar: ProgressBar
+    lateinit var toolbar: MaterialToolbar
     var recyclerViewAdapter = RecyclerViewAdapter()
     lateinit var recyclerView: RecyclerView
     lateinit var floatButton: FloatingActionButton
@@ -41,9 +44,10 @@ class MainFragment : Fragment(), ViewInterface {
             recyclerView = findViewById(R.id.id_recycler_view)
             floatButton = findViewById(R.id.floating_action_button)
             progressbar = findViewById(R.id.progress)
+            toolbar = findViewById(R.id.fragment_main_toolbar)
         }
 
-
+        addDrawerMenuIfExist()
         initRecycler()
         presenter.init()
         initCallBacks()
@@ -52,9 +56,23 @@ class MainFragment : Fragment(), ViewInterface {
 
     }
 
+    private fun addDrawerMenuIfExist() {
+        if (requireActivity() is MenuDrawable) {
+            (requireActivity() as MenuDrawable).setAppToolbar(toolbar)
+        }
+    }
+
     private fun initListeners() {
         floatButton.setOnClickListener() {
             presenter.addNote()
+        }
+
+        toolbar.setOnMenuItemClickListener(){
+            when(it.itemId){
+                R.id.menu_add->presenter.addNote()
+                else -> {true}
+            }
+            true
         }
     }
 
@@ -112,10 +130,13 @@ class MainFragment : Fragment(), ViewInterface {
     }
 
     companion object
+
     fun newInstance(): MainFragment {
         val instance: MainFragment by lazy { MainFragment() }
         return instance
     }
+
+
 }
 
 
