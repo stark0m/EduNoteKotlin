@@ -105,8 +105,10 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
 
     override fun deleteNote(note: OneNote) {
         view.startLoading()
+
         repository.deleteNote(note, object : CallBack<Boolean> {
             override fun onSuccess(data: Boolean) {
+
                 view.loaded()
 
             }

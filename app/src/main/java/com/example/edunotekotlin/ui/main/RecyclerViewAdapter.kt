@@ -13,6 +13,7 @@ import com.example.kotlineasynote.entities.OneNote
 class RecyclerViewAdapter() : Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     var data: MutableList<OneNote> = mutableListOf()
+
     interface ClickedNote {
         fun clicked(note: OneNote)
     }
