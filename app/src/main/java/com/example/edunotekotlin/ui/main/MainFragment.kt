@@ -5,10 +5,8 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.FileUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -60,8 +58,36 @@ class MainFragment : Fragment(), ViewInterface {
         presenter.init()
         initCallBacks()
         initListeners()
+        initContextMenu()
 
 
+
+    }
+
+    private fun initContextMenu() {
+        registerForContextMenu(recyclerView)
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        requireActivity().menuInflater.inflate(R.menu.context_menu,menu)
+    }
+
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.menu_context_delete ->{presenter.deleteNote(presenter.getSelectedNote()!!)
+            recyclerViewAdapter.notifyItemRemoved(presenter.getSelectedNotePosition()!!)
+                return true}
+            R.id.menu_context_edit ->{presenter.updateNote(presenter.getSelectedNote()!!)
+                return true}
+        }
+        return super.onContextItemSelected(item)
     }
 
     private fun addDrawerMenuIfExist() {
@@ -89,9 +115,19 @@ class MainFragment : Fragment(), ViewInterface {
     private fun initCallBacks() {
 
         recyclerViewAdapter.clickedNote = object : RecyclerViewAdapter.ClickedNote {
-            override fun clicked(note: OneNote) {
+            override fun onClicked(note: OneNote) {
                 presenter.updateNote(note)
             }
+
+            override fun onLongClicked(note: OneNote, position: Int) {
+
+                presenter.setSelectedNote(note)
+                presenter.setSelectedNotePosition(position)
+
+            }
+
+
+
         }
 
 
