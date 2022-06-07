@@ -1,6 +1,5 @@
 package com.example.edunotekotlin.ui.main.mainpresenter
 
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.entities.Constants
@@ -16,6 +15,9 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
 
     private var repository = RepositorySharedImpl()
     private var fragment: Fragment? = null
+    private var selNote: OneNote? = null
+    private var selNotePosition: Int? = null
+
 
     override fun init() {
         view.startLoading()
@@ -115,6 +117,18 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
         })
     }
 
+    override fun setSelectedNote(note: OneNote) {
+        selNote = note
+    }
+
+    override fun getSelectedNote(): OneNote? = selNote
+
+    override fun setSelectedNotePosition(position: Int) {
+        selNotePosition = position
+    }
+
+    override fun getSelectedNotePosition(): Int? = selNotePosition
+
 
     override fun attachFragment(fragment: Fragment) {
         this.fragment = fragment
@@ -123,5 +137,7 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
     override fun detouchFragment() {
         this.fragment = null
     }
+
+
 
 }

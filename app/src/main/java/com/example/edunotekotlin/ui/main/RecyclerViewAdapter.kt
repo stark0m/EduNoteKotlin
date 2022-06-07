@@ -1,12 +1,15 @@
 package com.example.edunotekotlin.ui.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.edunotekotlin.R
+import com.example.edunotekotlin.ui.MainActivity
 import com.example.kotlineasynote.entities.OneNote
 
 
@@ -15,7 +18,8 @@ class RecyclerViewAdapter() : Adapter<RecyclerViewAdapter.ViewHolder>() {
     var data: MutableList<OneNote> = mutableListOf()
 
     interface ClickedNote {
-        fun clicked(note: OneNote)
+        fun onClicked(note: OneNote)
+        fun onLongClicked(note: OneNote,position: Int)
     }
 
     var clickedNote: ClickedNote? = null
@@ -53,8 +57,17 @@ class RecyclerViewAdapter() : Adapter<RecyclerViewAdapter.ViewHolder>() {
 
         holder.itemView.setOnClickListener {
             if (clickedNote != null) {
-                clickedNote?.clicked(data[position])
+                clickedNote?.onClicked(data[position])
             }
+        }
+
+        holder.itemView.setOnLongClickListener(){
+            if (clickedNote != null) {
+
+                clickedNote?.onLongClicked(data[position],position)
+            }
+          it.showContextMenu()
+            true
         }
 
     }
