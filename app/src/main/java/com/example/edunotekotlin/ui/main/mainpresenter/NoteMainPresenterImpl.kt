@@ -1,8 +1,11 @@
 package com.example.edunotekotlin.ui.main.mainpresenter
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import com.example.edunotekotlin.R
 import com.example.edunotekotlin.entities.Constants
+import com.example.edunotekotlin.entities.RepositiryFromSharedPrefsImpl
+import com.example.edunotekotlin.entities.Repository
 import com.example.edunotekotlin.entities.RepositorySharedImpl
 import com.example.edunotekotlin.ui.edit.ActionFragment
 import com.example.edunotekotlin.ui.edit.editpresenter.NoteEditPresenterImpl
@@ -10,22 +13,38 @@ import com.example.edunotekotlin.ui.main.ViewInterface
 import com.example.kotlineasynote.entities.CallBack
 import com.example.kotlineasynote.entities.OneNote
 
-class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
+class NoteMainPresenterImpl : NoteMainPresenter {
 
+    constructor (view: ViewInterface,cont:Context) : this(view) {
 
-    private var repository = RepositorySharedImpl()
+        repository = RepositiryFromSharedPrefsImpl(cont)
+        this.viewMain = view
+
+    }
+
+    constructor(view: ViewInterface) {
+        repository = RepositorySharedImpl()
+        this.viewMain = view
+
+    }
+
+    private lateinit var viewMain :ViewInterface
+    private lateinit var repository :Repository
     private var fragment: Fragment? = null
     private var selNote: OneNote? = null
     private var selNotePosition: Int? = null
 
 
     override fun init() {
-        view.startLoading()
+        viewMain.startLoading()
+
+
+
         repository.getData(object : CallBack<MutableList<OneNote>> {
             override fun onSuccess(data: MutableList<OneNote>) {
-                view.writeNoteListToData(data)
-                view.redraw()
-                view.loaded()
+                viewMain.writeNoteListToData(data)
+                viewMain.redraw()
+                viewMain.loaded()
             }
         })
 
@@ -54,16 +73,16 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
 
         editableFragment.presenter.action(object : CallBack<OneNote> {
             override fun onSuccess(noteReceived: OneNote) {
-                view.startLoading()
+                viewMain.startLoading()
 
                 repository.addNote(noteReceived, object : CallBack<Boolean> {
                     override fun onSuccess(data: Boolean) {
-                        view.loaded()
-                        view.addNote(noteReceived)
+                        viewMain.loaded()
+                        viewMain.addNote(noteReceived)
                     }
                 })
                 fragment!!.requireActivity().supportFragmentManager.popBackStack();
-                view.redraw()
+                viewMain.redraw()
             }
         })
 //        TODO("Not yet implemented")
@@ -90,15 +109,15 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
 
         editableFragment.presenter.action(object : CallBack<OneNote> {
             override fun onSuccess(data: OneNote) {
-                view.startLoading()
+                viewMain.startLoading()
                 repository.updateNote(oldNote, data, object : CallBack<Boolean> {
                     override fun onSuccess(data: Boolean) {
-                        view.loaded()
+                        viewMain.loaded()
 
                     }
                 })
                 fragment!!.requireActivity().supportFragmentManager.popBackStack();
-                view.redraw()
+                viewMain.redraw()
             }
         })
 
@@ -106,12 +125,12 @@ class NoteMainPresenterImpl(val view: ViewInterface) : NoteMainPresenter {
     }
 
     override fun deleteNote(note: OneNote) {
-        view.startLoading()
+        viewMain.startLoading()
 
         repository.deleteNote(note, object : CallBack<Boolean> {
             override fun onSuccess(data: Boolean) {
 
-                view.loaded()
+                viewMain.loaded()
 
             }
         })
