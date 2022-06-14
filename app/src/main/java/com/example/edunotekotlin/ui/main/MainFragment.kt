@@ -25,7 +25,8 @@ import kotlin.math.roundToInt
 
 class MainFragment : Fragment(), ViewInterface {
 
-    val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this) }
+    val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this,requireContext()) }
+//    val presenter: NoteMainPresenterImpl by lazy { NoteMainPresenterImpl(this) }
     lateinit var progressbar: ProgressBar
     lateinit var toolbar: MaterialToolbar
     var recyclerViewAdapter = RecyclerViewAdapter()
